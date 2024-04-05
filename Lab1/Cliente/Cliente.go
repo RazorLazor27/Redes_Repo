@@ -12,6 +12,27 @@ import (
 var UDPClientStatus bool = true
 var TCPClientStatus bool = false
 
+var tableroJ = []string{"A", "B", "C", "D"}
+var tableroS = []string{"A", "B", "C", "D"}
+
+func cambiarLetra(letra string, arr []string) {
+	for i := range arr {
+		if arr[i] == letra {
+			arr[i] = "X"
+		}
+	}
+}
+
+func show_tablero(tablero []string) {
+	fmt.Println("\n                    Tablero")
+	fmt.Printf("               ┌─────┐  ┌─────┐\n")
+	fmt.Printf("               │  %s  │  │  %s  │\n", tablero[0], tablero[1])
+	fmt.Printf("               └─────┘  └─────┘\n")
+	fmt.Printf("               ┌─────┐  ┌─────┐\n")
+	fmt.Printf("               │  %s  │  │  %s  │\n", tablero[2], tablero[3])
+	fmt.Printf("               └─────┘  └─────┘\n")
+}
+
 func main() {
 	argumentos := os.Args
 
@@ -110,6 +131,8 @@ func main() {
 		for TCPClientStatus {
 			// Aqui asumimos que el usuario nos da un caracter bueno
 			// De no hacerlo, xd
+			show_tablero(tableroJ)
+
 			lector := bufio.NewReader(os.Stdin)
 			fmt.Println("Que casilla desea atacar, mi capitan?")
 			fmt.Print(" > ")
@@ -128,8 +151,29 @@ func main() {
 			letra = strings.ToUpper(letra)
 			fmt.Println("La letra entregada fue: ", letra)
 
+			decision := string(mensaje[0])
+			lugar := string(mensaje[1])
+
 			if strings.Contains(letra, "STOP") {
 				fmt.Println("Cerrando la conexion TCP del cliente")
+				TCPClientStatus = false
+				return
+			}
+			switch decision {
+
+			case "1": //Usuario gano
+				fmt.Println("Le has acertado a BlackBeard!, Sales victorioso del combate")
+				fmt.Println("Gracias por jugar :D")
+				TCPClientStatus = false
+				return
+			case "2":
+				fmt.Println("Has fallado tu tiro!, pero BlackBeard tambien...")
+				cambiarLetra(letra, tableroJ)
+				cambiarLetra(lugar, tableroS)
+
+			case "3":
+				fmt.Println("Has fallado tu tiro!, pero BlackBeard logra acertar el suyo!")
+				fmt.Println("Tu tripulación es baja y tu barco se hunde, PERDISTE")
 				TCPClientStatus = false
 				return
 			}

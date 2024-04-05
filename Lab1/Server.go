@@ -122,11 +122,14 @@ func main() {
 			fmt.Println("El mensaje del jugador es:", tcpmsg)
 			if tcpmsg == "STOP" {
 				fmt.Println("Saliendo del Servidor TCP")
-				return
+				codeExit = "4"
+				x = "F"
+
 			} else if tcpmsg == letraServer {
 				//Jugador gana
 				fmt.Println("EL JUGADOR GANA")
 				codeExit = "1"
+				x = "F"
 
 			} else {
 				// Aqui va el servidor a simular un disparo
@@ -155,6 +158,7 @@ func main() {
 				(1) -> El jugador ha encontrado al enemigo (jugador gana)
 				(2) -> El jugador ha fallado y el servidor tambien (juego sigue)
 				(3) -> El jugador ha fallado pero el servidor no (servidor gana)
+				(4) -> El jugador detiene el juego
 			*/
 			salida := codeExit + x + "\n"
 
