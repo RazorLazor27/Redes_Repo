@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math/rand"
 	"net"
 	"strings"
 )
@@ -15,7 +16,14 @@ var Ip string
 
 var codeExit string = ""
 
-var looptcpmsg bool = true
+func letra_azar() string {
+	letras := []string{"A", "B", "C", "D"}
+
+	indice := rand.Intn(len(letras))
+
+	return letras[indice]
+
+}
 
 func cicloCliente(conexion *net.UDPConn) {
 

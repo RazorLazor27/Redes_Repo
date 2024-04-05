@@ -33,6 +33,14 @@ func show_tablero(tablero []string) {
 	fmt.Printf("               └─────┘  └─────┘\n")
 }
 
+func lore() {
+	fmt.Print("\nBienvenid@s al juego del pirata, veamos quién puede sobrevivir en altamar\n")
+	fmt.Print("\n")
+	fmt.Print("Dame tu ubicación, sólo puedes contestar con: A, B, C o D: ")
+	fmt.Print("\n")
+
+}
+
 func main() {
 	argumentos := os.Args
 
@@ -107,7 +115,6 @@ func main() {
 
 		fmt.Println("Iniciando conexion TCP con el servidor")
 		time.Sleep(1 * time.Second)
-		fmt.Println("iniciado")
 
 		conexionTCP := argumentos[1]
 
@@ -121,12 +128,15 @@ func main() {
 		msg, _ := bufio.NewReader(conn).ReadString('\n')
 
 		posJugador := string(msg[0])
-		posServer := string(msg[1])
+		//posServer := string(msg[1])
 
-		fmt.Println("El valor del mensaje 1 es:", msg)
+		// fmt.Println("El valor del mensaje 1 es:", msg)
 
-		fmt.Println("Capitan!, usted se encuentra en la zona:", posJugador)
-		fmt.Println("El enemigo se encuentra en la zona:", posServer)
+		lore()
+		time.Sleep(1 * time.Second)
+
+		fmt.Println("\n(Tripulante) -Capitan!, Nos encontramos en la zona:", posJugador)
+		// fmt.Println("El enemigo se encuentra en la zona:", posServer)
 
 		for TCPClientStatus {
 			// Aqui asumimos que el usuario nos da un caracter bueno
