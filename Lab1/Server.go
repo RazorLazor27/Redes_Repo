@@ -74,7 +74,7 @@ func main() {
 
 	if TCPServerStatus {
 
-		fmt.Println("La conexion TCP ocurrira en la direccion ip: ", Ip)
+		//fmt.Println("La conexion TCP ocurrira en la direccion ip: ", Ip)
 		fmt.Println("Iniciando la conexion TCP...")
 		letraJugador := letra_azar()
 
@@ -94,11 +94,15 @@ func main() {
 			return
 		}
 
-		c.Write([]byte(letraJugador))
+		testeo := letraJugador
+		_, err = c.Write([]byte(testeo + "\n"))
+		if err != nil {
+			fmt.Println("ERROR CTM:", err)
+		}
 
 		// tablaArrayS := []string{"A", "B", "C", "D"}
 		letraServer := letra_azar()
-		fmt.Printf("Letra Jugador: %s, Letra Servidor: %s\n", letraJugador, letraServer)
+		fmt.Printf("Letra Servidor: %s\n", letraServer)
 
 		for {
 			networkData, err := bufio.NewReader(c).ReadString('\n')

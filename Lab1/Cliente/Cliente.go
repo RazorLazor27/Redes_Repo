@@ -90,17 +90,17 @@ func main() {
 
 		conexionTCP := argumentos[1]
 
-		c, err := net.Dial("tcp", conexionTCP)
+		conn, err := net.Dial("tcp", conexionTCP)
 
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 
-		// lectoraux := bufio.NewReader(os.Stdin)
-		// letraaux, _ := lectoraux.ReadString('\n')
+		msg, _ := bufio.NewReader(conn).ReadString('\n')
 
-		fmt.Println("Capitan!, usted se encuentra en la zona:", "A")
+		fmt.Println("El valor del mensaje 1 es:", msg)
+		// fmt.Println("Capitan!, usted se encuentra en la zona:")
 
 		for TCPClientStatus {
 			// Aqui asumimos que el usuario nos da un caracter bueno
@@ -111,11 +111,11 @@ func main() {
 
 			letra, _ := lector.ReadString('\n')
 
-			fmt.Fprintf(c, letra+"\n")
+			fmt.Fprintf(conn, letra+"\n")
 
 			//mensaje es lo que le manda el servidor al cliente
 
-			mensaje, _ := bufio.NewReader(c).ReadString('\n')
+			mensaje, _ := bufio.NewReader(conn).ReadString('\n')
 
 			fmt.Print("(server) --> " + mensaje)
 
