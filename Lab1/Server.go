@@ -13,7 +13,7 @@ var UDPServerStatus bool = true
 var TCPServerStatus bool = false
 var Ip string
 
-var codeExit int = 0
+var codeExit string = ""
 
 var looptcpmsg bool = true
 
@@ -105,6 +105,8 @@ func main() {
 
 		fmt.Printf("Letra Servidor: %s\n", letraServer)
 
+		var x string
+
 		for {
 			networkData, err := bufio.NewReader(c).ReadString('\n')
 			if err != nil {
@@ -124,17 +126,19 @@ func main() {
 			} else if tcpmsg == letraServer {
 				//Jugador gana
 				fmt.Println("EL JUGADOR GANA")
-				codeExit = 1
+				codeExit = "1"
+
 			} else {
 				// Aqui va el servidor a simular un disparo
-				x := letra_azar()
+				x = letra_azar()
 				fmt.Println("el servidor disparo hacia:", x)
 				if x == letraJugador {
 					// Servidor gana
-					codeExit = 3
+					fmt.Println("LA COMPUTADORA HA GANADO")
+					codeExit = "3"
 				} else {
 					// El juego continua
-					codeExit = 2
+					codeExit = "2"
 				}
 			}
 
@@ -152,11 +156,15 @@ func main() {
 				(2) -> El jugador ha fallado y el servidor tambien (juego sigue)
 				(3) -> El jugador ha fallado pero el servidor no (servidor gana)
 			*/
-			salida := string(rune(codeExit)) + "\n"
+			salida := codeExit + x + "\n"
 
 			fmt.Println("El codigo de salida del servidor es:", salida)
 
 			c.Write([]byte(salida))
+
+			if codeExit != "2" {
+				return
+			}
 		}
 
 		// Jugador dice que si
