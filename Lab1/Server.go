@@ -10,12 +10,16 @@ import (
 
 const Puerto = ":8080"
 
+// Mostrar si el servido ha validado la conexion UDP
 var UDPServerStatus bool = true
+
+// Mostrar si el servido ha validado la conexion TCP
 var TCPServerStatus bool = false
 var Ip string
 
 var codeExit string = ""
 
+// Se explica con el nombre, esta funcion escoge una letra al azar entre las 4 posibles que la tarea nos da
 func letra_azar() string {
 	letras := []string{"A", "B", "C", "D"}
 
@@ -25,6 +29,7 @@ func letra_azar() string {
 
 }
 
+// Esta funcion mantiene la conexion UDP abierta mientras sea necesario, ayuda a tener un codigo mas conciso en la funcion main
 func cicloCliente(conexion *net.UDPConn) {
 
 	buffer := make([]byte, 1024)

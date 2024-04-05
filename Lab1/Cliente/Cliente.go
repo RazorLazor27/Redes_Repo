@@ -9,12 +9,17 @@ import (
 	"time"
 )
 
+// Si se valido la conexion UDP
 var UDPClientStatus bool = true
+
+// Si se valido la conexion TCP
 var TCPClientStatus bool = false
 
 var tableroJ = []string{"A", "B", "C", "D"}
 var tableroS = []string{"A", "B", "C", "D"}
 
+// Esta funcion se ocupa para marcar el mapa en los lugares donde el jugador
+// ya disparo, es una ayuda visual
 func cambiarLetra(letra string, arr []string) {
 	for i := range arr {
 		if arr[i] == letra {
@@ -23,6 +28,7 @@ func cambiarLetra(letra string, arr []string) {
 	}
 }
 
+// Demostracion visual del tablero por pantalla
 func show_tablero(tablero []string) {
 	fmt.Println("\n                    Tablero")
 	fmt.Printf("               ┌─────┐  ┌─────┐\n")
@@ -33,6 +39,7 @@ func show_tablero(tablero []string) {
 	fmt.Printf("               └─────┘  └─────┘\n")
 }
 
+// Mucho texto que queda mas ordenado en una funcion, solo tiene la funcion de contar por pantalla una pequeña historia
 func lore() {
 	fmt.Print("\nBienvenid@s al juego del pirata, veamos quién puede sobrevivir en altamar\n")
 	fmt.Print("\n")
@@ -72,6 +79,7 @@ func main() {
 
 	for UDPClientStatus {
 		reader := bufio.NewReader(os.Stdin)
+		fmt.Println("Favor de escribir 'si' para iniciar la conexion UDP")
 		fmt.Print(" -> ")
 		texto, _ := reader.ReadString('\n')
 		data := []byte(texto + "\n")
@@ -128,9 +136,6 @@ func main() {
 		msg, _ := bufio.NewReader(conn).ReadString('\n')
 
 		posJugador := string(msg[0])
-		//posServer := string(msg[1])
-
-		// fmt.Println("El valor del mensaje 1 es:", msg)
 
 		lore()
 		time.Sleep(1 * time.Second)
