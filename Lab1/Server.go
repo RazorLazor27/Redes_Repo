@@ -95,6 +95,8 @@ func main() {
 				return
 			}
 
+			//tcpmsg viene siendo el mensaje del jugador al servidor
+
 			tcpmsg := strings.TrimSpace(string(networkData))
 			tcpmsg = strings.ToUpper(tcpmsg)
 

@@ -79,6 +79,8 @@ func main() {
 
 	}
 
+	//Aqui comienza la parte del juego mismo
+
 	if TCPClientStatus {
 		//Aqui se probara el servidor TCP y la conexion de mierda
 
@@ -102,6 +104,8 @@ func main() {
 			letra, _ := lector.ReadString('\n')
 
 			fmt.Fprintf(c, letra+"\n")
+
+			//mensaje es lo que le manda el servidor al cliente
 
 			mensaje, _ := bufio.NewReader(c).ReadString('\n')
 
