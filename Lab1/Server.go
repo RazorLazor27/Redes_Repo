@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 	"strings"
-	"time"
 )
 
 const Puerto = ":8080"
@@ -13,6 +12,8 @@ const Puerto = ":8080"
 var UDPServerStatus bool = true
 var TCPServerStatus bool = false
 var Ip string
+
+var codeExit int = 0
 
 var looptcpmsg bool = true
 
@@ -96,8 +97,8 @@ func main() {
 		c.Write([]byte(letraJugador))
 
 		// tablaArrayS := []string{"A", "B", "C", "D"}
-
-		// letraServer := letra_azar()
+		letraServer := letra_azar()
+		fmt.Printf("Letra Jugador: %s, Letra Servidor: %s\n", letraJugador, letraServer)
 
 		for {
 			networkData, err := bufio.NewReader(c).ReadString('\n')
@@ -111,16 +112,46 @@ func main() {
 			tcpmsg := strings.TrimSpace(string(networkData))
 			tcpmsg = strings.ToUpper(tcpmsg)
 
+			fmt.Println("El mensaje del jugador es:", tcpmsg)
 			if tcpmsg == "STOP" {
 				fmt.Println("Saliendo del Servidor TCP")
 				return
+			} else if tcpmsg == letraServer {
+				//Jugador gana
+				fmt.Println("EL JUGADOR GANA")
+				codeExit = 1
+			} else {
+				// Aqui va el servidor a simular un disparo
+				x := letra_azar()
+				fmt.Println("el servidor disparo hacia:", x)
+				if x == letraJugador {
+					// Servidor gana
+					codeExit = 3
+				} else {
+					// El juego continua
+					codeExit = 2
+				}
 			}
 
 			fmt.Println("-> ", tcpmsg)
-			t := time.Now()
+			// t := time.Now()
 
-			mytime := t.Format(time.RFC3339) + "\n"
-			c.Write([]byte(mytime))
+			// mytime := t.Format(time.RFC3339) + "\n"
+			// La funcion write escribe el mensaje hacia el cliente
+			// Para simplificar ocuparemos codigos en int para
+			// Denotar si el juego sigue o no
+
+			// Listado de numeros:
+			/*
+				(1) -> El jugador ha encontrado al enemigo (jugador gana)
+				(2) -> El jugador ha fallado y el servidor tambien (juego sigue)
+				(3) -> El jugador ha fallado pero el servidor no (servidor gana)
+			*/
+			salida := string(rune(codeExit)) + "\n"
+
+			fmt.Println("El codigo de salida del servidor es:", salida)
+
+			c.Write([]byte(salida))
 		}
 
 		// Jugador dice que si

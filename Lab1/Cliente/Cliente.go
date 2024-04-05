@@ -86,6 +86,7 @@ func main() {
 
 		fmt.Println("Iniciando conexion TCP con el servidor")
 		time.Sleep(1 * time.Second)
+		fmt.Println("iniciado")
 
 		conexionTCP := argumentos[1]
 
@@ -96,13 +97,16 @@ func main() {
 			return
 		}
 
-		letraJugador, _ := bufio.NewReader(c).ReadString('\n')
+		// lectoraux := bufio.NewReader(os.Stdin)
+		// letraaux, _ := lectoraux.ReadString('\n')
 
-		fmt.Println("La letra del jugador visto desde el cliente es:", letraJugador)
+		fmt.Println("Capitan!, usted se encuentra en la zona:", "A")
 
 		for TCPClientStatus {
+			// Aqui asumimos que el usuario nos da un caracter bueno
+			// De no hacerlo, xd
 			lector := bufio.NewReader(os.Stdin)
-			fmt.Println("Que accion desea realizar ?")
+			fmt.Println("Que casilla desea atacar, mi capitan?")
 			fmt.Print(" > ")
 
 			letra, _ := lector.ReadString('\n')
@@ -113,7 +117,7 @@ func main() {
 
 			mensaje, _ := bufio.NewReader(c).ReadString('\n')
 
-			fmt.Print(" --> " + mensaje)
+			fmt.Print("(server) --> " + mensaje)
 
 			letra = strings.TrimSpace(string(letra))
 			letra = strings.ToUpper(letra)
