@@ -77,6 +77,7 @@ func main() {
 		//fmt.Println("La conexion TCP ocurrira en la direccion ip: ", Ip)
 		fmt.Println("Iniciando la conexion TCP...")
 		letraJugador := letra_azar()
+		letraServer := letra_azar()
 
 		fmt.Println("La letra del jugador al inicio es:", letraJugador)
 
@@ -95,13 +96,13 @@ func main() {
 		}
 
 		testeo := letraJugador
-		_, err = c.Write([]byte(testeo + "\n"))
+		_, err = c.Write([]byte(testeo + letraServer + "\n"))
 		if err != nil {
 			fmt.Println("ERROR CTM:", err)
 		}
 
 		// tablaArrayS := []string{"A", "B", "C", "D"}
-		letraServer := letra_azar()
+
 		fmt.Printf("Letra Servidor: %s\n", letraServer)
 
 		for {

@@ -99,8 +99,13 @@ func main() {
 
 		msg, _ := bufio.NewReader(conn).ReadString('\n')
 
+		posJugador := string(msg[0])
+		posServer := string(msg[1])
+
 		fmt.Println("El valor del mensaje 1 es:", msg)
-		// fmt.Println("Capitan!, usted se encuentra en la zona:")
+
+		fmt.Println("Capitan!, usted se encuentra en la zona:", posJugador)
+		fmt.Println("El enemigo se encuentra en la zona:", posServer)
 
 		for TCPClientStatus {
 			// Aqui asumimos que el usuario nos da un caracter bueno
