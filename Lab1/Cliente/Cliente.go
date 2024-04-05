@@ -96,6 +96,10 @@ func main() {
 			return
 		}
 
+		letraJugador, _ := bufio.NewReader(c).ReadString('\n')
+
+		fmt.Println("La letra del jugador visto desde el cliente es:", letraJugador)
+
 		for TCPClientStatus {
 			lector := bufio.NewReader(os.Stdin)
 			fmt.Println("Que accion desea realizar ?")

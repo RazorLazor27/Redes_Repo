@@ -14,6 +14,8 @@ var UDPServerStatus bool = true
 var TCPServerStatus bool = false
 var Ip string
 
+var looptcpmsg bool = true
+
 func cicloCliente(conexion *net.UDPConn) {
 
 	buffer := make([]byte, 1024)
@@ -73,6 +75,9 @@ func main() {
 
 		fmt.Println("La conexion TCP ocurrira en la direccion ip: ", Ip)
 		fmt.Println("Iniciando la conexion TCP...")
+		letraJugador := letra_azar()
+
+		fmt.Println("La letra del jugador al inicio es:", letraJugador)
 
 		l, err := net.Listen("tcp", Puerto)
 		if err != nil {
@@ -87,6 +92,12 @@ func main() {
 			fmt.Println(err)
 			return
 		}
+
+		c.Write([]byte(letraJugador))
+
+		// tablaArrayS := []string{"A", "B", "C", "D"}
+
+		// letraServer := letra_azar()
 
 		for {
 			networkData, err := bufio.NewReader(c).ReadString('\n')
